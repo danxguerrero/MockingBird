@@ -25,13 +25,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-between`}
       >
         <div className="border border-red-600 h-12 p-6 py-3 flex justify-between ">
           <p>Nav</p>
           <p>User</p>
         </div>
         {children}
+        <div className="border border-yellow-600 h-12 py-3">
+          <p>Home</p>
+        </div>
       </body>
     </html>
   );
