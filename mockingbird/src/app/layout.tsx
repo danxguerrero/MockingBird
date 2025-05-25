@@ -27,7 +27,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-between min-h-screen`}
       >
-        <div className="border border-red-600 h-12 p-6 py-3 flex justify-between ">
+        <div className="border border-red-600 h-12 p-6 py-3 flex justify-between">
           <p>Nav</p>
           <p>User</p>
         </div>

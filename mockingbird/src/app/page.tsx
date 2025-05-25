@@ -8,7 +8,7 @@ export default function Home() {
           <p>Practice your technical interview skills with AI</p>
           <div className="space-y-4">
             <Link 
-              href="/dashboard"
+              href="/interview"
               className="inline-block bg-blue-600 text-white px-6 rounded-lg hover:bg-blue-700 transition-colors"
             >
               Start New Interview
