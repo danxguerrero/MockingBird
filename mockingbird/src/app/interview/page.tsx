@@ -1,9 +1,11 @@
+import { Timer } from "./components/Timer"
+
 export default function Page() {
     return (
         <div className="flex flex-1">
             <div className="bg-color-red-500 w-2/5 flex flex-col">
                 <div className="h-1/3">
-                    <p>Timer</p>
+                    <Timer />
                 </div>
                 <div className="h-2/3">
                     <p>Question</p>
