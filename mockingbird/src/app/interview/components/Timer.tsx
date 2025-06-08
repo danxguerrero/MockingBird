@@ -24,20 +24,20 @@ export const Timer = () => {
     }, [time, interviewActive])
 
     return (
-        <div className="border border-red-500 w-full flex flex-col items-center justify-center">
+        <div className="w-full flex justify-center items-center">
             {interviewActive ? (
-                <div className="flex space-x-4">
-                    <div className="flex flex-col space-x-4  gap-4 items-center justify-center">
-                        <p className="text-4xl">{minutes < 10 ? `0${minutes}` : minutes}</p>
+                <div className="flex space-x-4 flex-1 w-full justify-center">
+                    <div className="flex flex-col gap-4 items-center justify-center w-1/4 text-center">
+                        <p className="text-4xl p-3 bg-lime-300 text-black rounded-lg w-full">{minutes < 10 ? `0${minutes}` : minutes}</p>
                         <p>Minutes</p>
                     </div>
-                    <div className="flex flex-col space-x-4 gap-4 items-center justify-center">
-                        <p className="text-4xl">{seconds < 10 ? `0${seconds}` : seconds}</p>
+                    <div className="flex flex-col gap-4 items-center justify-center w-1/4">
+                        <p className="text-4xl p-3 bg-lime-300 text-black rounded-lg w-full text-center">{seconds < 10 ? `0${seconds}` : seconds}</p>
                         <p>Seconds</p>
                     </div>
                 </div>
             ) : (
-                <button onClick={() => setInterviewActive(true)}>Start Interview</button>
+                <button onClick={() => setInterviewActive(true)} className="bg-lime-300 text-black p-2 rounded-lg hover:text-white hover:bg-lime-500 transition-colors">Start Interview</button>
             )}
         </div>
     )
