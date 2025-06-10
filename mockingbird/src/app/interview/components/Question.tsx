@@ -3,7 +3,7 @@ export const Question = () => {
         <div className="flex flex-col gap-3 mx-10 max-w-60">
             <h2 className="text-xl font-semibold">Question</h2>
             <div className="break-words whitespace-normal">
-"                This is where the Questions content will be. 
+                This is where the Questions content will be. 
                 <br/><br/>
                 Sample Question
                 <br/><br/>
