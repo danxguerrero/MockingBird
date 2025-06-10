@@ -1,4 +1,5 @@
 import { Timer } from "./components/Timer"
+import { Question } from "./components/Question"
 
 export default function Page() {
     return (
@@ -8,7 +9,7 @@ export default function Page() {
                     <Timer />
                 </div>
                 <div className="h-2/3">
-                    <p>Question</p>
+                    <Question/>
                 </div>
             </div>
             <div className="w-full flex flex-col">
