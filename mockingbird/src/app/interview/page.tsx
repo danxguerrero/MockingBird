@@ -1,5 +1,6 @@
 import { Timer } from "./components/Timer"
 import { Question } from "./components/Question"
+import { TextEditor } from "./components/TextEditor"
 
 export default function Page() {
     return (
@@ -14,7 +15,7 @@ export default function Page() {
             </div>
             <div className="w-full flex flex-col">
                 <div className="h-1/2">
-                    <p>Text Editor</p>
+                    <TextEditor/>
                 </div>
                 <div className="h-1/2">
                     <p>Chat</p>
