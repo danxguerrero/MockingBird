@@ -1,6 +1,7 @@
 import { Timer } from "./components/Timer"
 import { Question } from "./components/Question"
 import { TextEditor } from "./components/TextEditor"
+import { Chat } from "./components/Chat"
 
 export default function Page() {
     return (
@@ -18,7 +19,7 @@ export default function Page() {
                     <TextEditor/>
                 </div>
                 <div className="h-1/2">
-                    <p>Chat</p>
+                    <Chat/>
                 </div>
 
             </div>
