@@ -1,32 +1,100 @@
 'use client'
 
 import { useState } from 'react'
+import { sendToGemini } from '../actions'
+
+type Message = {
+    id: number
+    text: string
+    sender: 'user' | 'ai'
+}
 
 export const Chat = () => {
-    const [messages, setMessages] = useState<string[]>([])
+    const [messages, setMessages] = useState<Message[]>([])
     const [message, setMessage] = useState<string>("")
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        setMessages([...messages, message])
+        if (!message.trim()) return
+
+        const userMessage: Message = {
+            id: Date.now(),
+            text: message,
+            sender: 'user'
+        }
+
+
+        setMessages(prev => [...prev, userMessage])
         setMessage("")
+        setIsLoading(true)
+    
+        try {
+            const codeContent = "" //TODO: Get from TextEditor
+
+            const conversationHistory = messages.map(m => `${m.sender}: ${m.text}`)
+
+            // Make call to Gemini
+            const aiResponse = await sendToGemini(message, codeContent, conversationHistory)
+
+            if (aiResponse) {
+                const aiMessage: Message = {
+                    id: Date.now() + 1,
+                    text: aiResponse,
+                    sender: 'ai'
+                }
+                setMessages(prev => [...prev, aiMessage])
+            }
+        } catch (error) {
+            console.error('Error:', error)
+        } finally {
+            setIsLoading(false)
+        }
+
     }
 
-    return <div className="h-full">
-        <div className="h-9/10">
-            {messages.map((userMessage, idx)=> <p key={idx}>{userMessage}</p>)}
+    return <div className="h-full flex flex-col">
+        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            {messages.map((msg) => (
+                <div key={msg.id} className={`flex ${msg.sender == 'user' ? 'justify-end' : 'justify-start'}`}>
+                    <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                        msg.sender === 'user'
+                            ? 'bg-blue-500 text-white'
+                            : 'bg-gray-200 text-gray-800'
+                    }`}>
+                        {msg.text}
+                    </div>
+                </div>
+            ))}
+            {isLoading && (
+                <div className="flex justify-start">
+                    <div className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg">
+                        Interviwer is typing...
+                    </div>
+                </div>
+            )}
         </div>
-        <form 
-            className="h-1/10 flex"
+        <form
+            className="p-4 border-t"
             onSubmit={handleSubmit}
         >
-            <input 
-                type="text" 
-                value={message}
-                className="w-9/10 border rounded-lg"
-                onChange={e => setMessage(e.target.value)}
-            />
-            <input type="submit" value="Send Message" className="bg-lime-500 w-1/10 rounded-lg"></input>
+            <div className="flex gap-2">
+                <input 
+                    type="text"
+                    value={message}
+                    className="flex-1 border rounded-lg px-3 py-2"
+                    onChange={e => setMessage(e.target.value)}
+                    placeholder="Type your message..."
+                    disabled={isLoading}
+                />
+                <button
+                    type="submit"
+                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 disabled:opacity-50"
+                    disabled={isLoading}
+                >
+                    Send
+                </button>
+            </div>
         </form>
     </div>
 }
