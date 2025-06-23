@@ -1,9 +1,10 @@
 'use client'
 
 import { useState, useEffect} from 'react'
+import { useInterview } from './InterviewContext'
 
 export const Timer = () => {
-    const [interviewActive, setInterviewActive] = useState<boolean>(false)
+    const { interviewActive, setInterviewActive } = useInterview()
     const [time, setTime] = useState<number>(45 * 60) // 45 minutes in seconds
     const [seconds, setSeconds] = useState<number>(0)
     const [minutes, setMinutes] = useState<number>(45)
