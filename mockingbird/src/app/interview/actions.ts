@@ -29,3 +29,22 @@ export const sendToGemini = async (userMessage: string, codeContent: string, con
         return 'Sorry, I encountered an error. Please try again.'
     }
 }
+
+export const generateQuestionFromGemini = async () => {
+    try {
+        const prompt = `Generate an Leetcode style coding prompt for a mock interview. The coding question should be of easy or medium difficulty. Please do not provide any other information or text other than the prompt. For example, just respond back with:
+
+        "Write a function that determines if a string is a palindrome."
+        `
+
+        const response = await ai.models.generateContent({
+            model: "gemini-2.5-flash",
+            contents: prompt,
+        })
+
+        return response.text
+     } catch (error) {
+        console.error('Error calling Gemini', error)
+        return 'Sorry, I encountered an error. Please try again.'
+    }
+}

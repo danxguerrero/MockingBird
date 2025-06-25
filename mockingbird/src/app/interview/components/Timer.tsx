@@ -2,9 +2,10 @@
 
 import { useState, useEffect} from 'react'
 import { useInterview } from './InterviewContext'
+import { generateQuestionFromGemini } from '../actions'
 
 export const Timer = () => {
-    const { interviewActive, setInterviewActive } = useInterview()
+    const { interviewActive, setInterviewActive, setQuestion } = useInterview()
     const [time, setTime] = useState<number>(45 * 60) // 45 minutes in seconds
     const [seconds, setSeconds] = useState<number>(0)
     const [minutes, setMinutes] = useState<number>(45)
@@ -24,6 +25,12 @@ export const Timer = () => {
         }
     }, [time, interviewActive])
 
+    const activateInterview = async () => {
+        setInterviewActive(true)
+        const geminiQuestion = await generateQuestionFromGemini()
+        setQuestion(geminiQuestion ?? "No question generated.")
+    }
+
     return (
         <div className="w-full flex justify-center items-center">
             {interviewActive ? (
@@ -38,7 +45,7 @@ export const Timer = () => {
                     </div>
                 </div>
             ) : (
-                <button onClick={() => setInterviewActive(true)} className="bg-lime-300 text-black p-2 rounded-lg hover:text-white hover:bg-lime-500 transition-colors">Start Interview</button>
+                <button onClick={activateInterview} className="bg-lime-300 text-black p-2 rounded-lg hover:text-white hover:bg-lime-500 transition-colors">Start Interview</button>
             )}
         </div>
     )

@@ -5,6 +5,8 @@ import { createContext, useContext, useState, ReactNode } from 'react'
 type InterviewContextType = {
     interviewActive: boolean
     setInterviewActive: (active: boolean) => void
+    question: string | null
+    setQuestion: (q: string) => void
 }
 
 const InterviewContext = createContext<InterviewContextType | undefined>(undefined)
@@ -17,9 +19,10 @@ export const useInterview = () => {
 
 export const InterviewProvider = ({ children }: {children: ReactNode }) => {
     const [interviewActive, setInterviewActive] = useState(false)
+    const [question, setQuestion] = useState<string | null>(null)
 
     return (
-        <InterviewContext.Provider value={{ interviewActive, setInterviewActive }}>
+        <InterviewContext.Provider value={{ interviewActive, setInterviewActive, question, setQuestion }}>
             {children}
         </InterviewContext.Provider>
     )
