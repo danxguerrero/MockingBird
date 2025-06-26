@@ -31,11 +31,6 @@ export const TextEditor = () => {
     const handleEditorDidMount: OnMount = (editor) => {
         editorRef.current = editor
     }
-    function showValue() {
-        if (editorRef.current) {
-        alert(editorRef.current.getValue());
-      }
-    }
 
    return (
         <div className="h-full w-full">
@@ -47,7 +42,6 @@ export const TextEditor = () => {
             options = {editorOptions}
             onMount={handleEditorDidMount}
         />
-        <button onClick={showValue}>Show Content</button>
         </div>
 
     )
