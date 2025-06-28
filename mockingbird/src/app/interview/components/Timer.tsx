@@ -5,10 +5,9 @@ import { useInterview } from './InterviewContext'
 import { generateQuestionFromGemini } from '../actions'
 
 export const Timer = () => {
-    const { interviewActive, setInterviewActive, setQuestion } = useInterview()
-    const [time, setTime] = useState<number>(45 * 60) // 45 minutes in seconds
-    const [seconds, setSeconds] = useState<number>(0)
-    const [minutes, setMinutes] = useState<number>(45)
+    const { interviewActive, setInterviewActive, setQuestion, time, setTime } = useInterview()
+    const minutes = Math.floor(time / 60)
+    const seconds = time % 60
 
     useEffect(() => {
         if (interviewActive) {
@@ -19,8 +18,6 @@ export const Timer = () => {
                 }
 
                 setTime(time - 1)
-                setMinutes(Math.floor((time - 1) / 60))
-                setSeconds((time - 1) % 60)
             }, 1000)
         }
     }, [time, interviewActive])
