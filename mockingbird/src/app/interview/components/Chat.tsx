@@ -11,7 +11,7 @@ type Message = {
 }
 
 export const Chat = () => {
-    const { messages, setMessages } = useInterview()
+    const { messages, setMessages, code, question } = useInterview()
     const [message, setMessage] = useState<string>("")
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -31,12 +31,14 @@ export const Chat = () => {
         setIsLoading(true)
     
         try {
-            const codeContent = "" //TODO: Get from TextEditor
+            const codeContent = code
 
             const conversationHistory = messages.map(m => `${m.sender}: ${m.text}`)
 
+            const codingQuestion = question
+
             // Make call to Gemini
-            const aiResponse = await sendToGemini(message, codeContent, conversationHistory)
+            const aiResponse = await sendToGemini(message, codeContent, conversationHistory, codingQuestion)
 
             if (aiResponse) {
                 const aiMessage: Message = {

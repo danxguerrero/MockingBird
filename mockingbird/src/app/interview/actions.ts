@@ -4,18 +4,22 @@ import { GoogleGenAI } from '@google/genai'
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY})
 
-export const sendToGemini = async (userMessage: string, codeContent: string, conversationHistory: string[]) => {
+export const sendToGemini = async (userMessage: string, codeContent: string, conversationHistory: string[], codeQuestion: string | null) => {
     try {
         const prompt = `
             You are an AI interviewer conducting a coding interview.
 
             Current code from the candidate: ${codeContent}
 
+            Coding Question that the user should answer: ${codeQuestion}
+
             Candidate's message: ${userMessage}
 
             Previous conversation: ${conversationHistory.join('\n')}
 
-            Provide a helpful, constructive response as  an interviewer. Ask follow-up questions, provide feedback on their code, or guide them through the problem only if they specifically request assistance.
+            Provide a helpful, constructive response as  an interviewer. Ask follow-up questions, provide feedback on their code, encourage them to ask clarifying questions or guide them through the problem only if they specifically request assistance.
+
+            The user should be able to see the coding question so no need to repeat it. When the user says they are done, ask them to walk through the code with an example, inquire about Big O notation for space and time and then ask them follow up questions to see how they would adjust their code.
         `
 
         const response = await ai.models.generateContent({
