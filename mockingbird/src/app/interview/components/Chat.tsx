@@ -31,11 +31,11 @@ export const Chat = () => {
         setIsLoading(true)
     
         try {
-            const codeContent = code
+            const codeContent = code || "User has not written any code yet."
 
             const conversationHistory = messages.map(m => `${m.sender}: ${m.text}`)
 
-            const codingQuestion = question
+            const codingQuestion = question || "A question could not be generated. Please generate an easy or medium leetcode style question to ask the user."
 
             // Make call to Gemini
             const aiResponse = await sendToGemini(message, codeContent, conversationHistory, codingQuestion)

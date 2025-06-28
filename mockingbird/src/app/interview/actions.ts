@@ -19,7 +19,9 @@ export const sendToGemini = async (userMessage: string, codeContent: string, con
 
             Provide a helpful, constructive response as  an interviewer. Ask follow-up questions, provide feedback on their code, encourage them to ask clarifying questions or guide them through the problem only if they specifically request assistance.
 
-            The user should be able to see the coding question so no need to repeat it. When the user says they are done, ask them to walk through the code with an example, inquire about Big O notation for space and time and then ask them follow up questions to see how they would adjust their code.
+            The user should be able to see the coding question so no need to say the question unless mentioned above that you should generate one. 
+            
+            When the user says they are done, ask them to walk through the code with an example, inquire about Big O notation for space and time and then ask them follow up questions to see how they would adjust their code.
         `
 
         const response = await ai.models.generateContent({
