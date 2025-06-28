@@ -1,8 +1,9 @@
 'use client'
 
 import { useRef } from 'react'
-import Editor, { OnMount } from "@monaco-editor/react"
+import Editor, { OnMount, OnChange } from "@monaco-editor/react"
 import { editor } from 'monaco-editor'
+import { useInterview } from './InterviewContext'
 
 const editorOptions: editor.IStandaloneEditorConstructionOptions = {
     minimap: { enabled: false },
@@ -27,10 +28,23 @@ const editorOptions: editor.IStandaloneEditorConstructionOptions = {
 
 export const TextEditor = () => {
 
+    const { code, setCode } = useInterview()
     const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null)
+
     const handleEditorDidMount: OnMount = (editor) => {
         editorRef.current = editor
+
+        if (code) {
+            editor.setValue(code)
+        }
     }
+
+    const handleEditorChange: OnChange = (value) => {
+        if (value !== undefined) {
+            setCode(value)
+        }
+    }
+
 
    return (
         <div className="h-full w-full">
@@ -41,6 +55,7 @@ export const TextEditor = () => {
             defaultValue='//Enter your code here'
             options = {editorOptions}
             onMount={handleEditorDidMount}
+            onChange = {handleEditorChange}
         />
         </div>
 
