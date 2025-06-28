@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect,  ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect,  ReactNode, Dispatch, SetStateAction } from 'react'
 
 type Message = {
     id: number
@@ -18,7 +18,7 @@ type InterviewContextType = {
     code: string
     setCode: (code: string) => void
     messages: Message[]
-    setMessages: (messages: Message[]) => void
+    setMessages: Dispatch<SetStateAction<Message[]>>
 }
 
 const InterviewContext = createContext<InterviewContextType | undefined>(undefined)

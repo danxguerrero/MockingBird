@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { sendToGemini } from '../actions'
+import { useInterview } from './InterviewContext'
 
 type Message = {
     id: number
@@ -10,7 +11,7 @@ type Message = {
 }
 
 export const Chat = () => {
-    const [messages, setMessages] = useState<Message[]>([])
+    const { messages, setMessages } = useInterview()
     const [message, setMessage] = useState<string>("")
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -25,7 +26,7 @@ export const Chat = () => {
         }
 
 
-        setMessages(prev => [...prev, userMessage])
+        setMessages((prev: Message[]) => [...prev, userMessage])
         setMessage("")
         setIsLoading(true)
     
@@ -43,7 +44,7 @@ export const Chat = () => {
                     text: aiResponse,
                     sender: 'ai'
                 }
-                setMessages(prev => [...prev, aiMessage])
+                setMessages((prev: Message[]) => [...prev, aiMessage])
             }
         } catch (error) {
             console.error('Error:', error)
