@@ -3,9 +3,10 @@
 import { useEffect} from 'react'
 import { useInterview } from './InterviewContext'
 import { generateQuestionFromGemini } from '../actions'
+import type {Message} from '../types'
 
 export const Timer = () => {
-    const { interviewActive, setInterviewActive, setQuestion, time, setTime } = useInterview()
+    const { interviewActive, setInterviewActive, setQuestion, time, setTime, setMessages } = useInterview()
     const minutes = Math.floor(time / 60)
     const seconds = time % 60
 
@@ -26,6 +27,14 @@ export const Timer = () => {
         setInterviewActive(true)
         const geminiQuestion = await generateQuestionFromGemini()
         setQuestion(geminiQuestion ?? "No question generated.")
+        
+        // Add initial AI message
+        const initialMessage: Message = {
+            id: Date.now(),
+            text: "Hello! I'm your AI interviewer today. Please introduce yourself and tell me a bit about your background and experience. Then we'll dive into the coding question.",
+            sender: 'ai'
+        }
+        setMessages([initialMessage])
     }
 
     return (
