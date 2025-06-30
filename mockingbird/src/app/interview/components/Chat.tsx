@@ -3,12 +3,7 @@
 import { useState } from 'react'
 import { sendToGemini } from '../actions'
 import { useInterview } from './InterviewContext'
-
-type Message = {
-    id: number
-    text: string
-    sender: 'user' | 'ai'
-}
+import type { Message } from '../types'
 
 export const Chat = () => {
     const { messages, setMessages, code, question } = useInterview()

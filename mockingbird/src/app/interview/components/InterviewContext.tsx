@@ -1,12 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, useEffect,  ReactNode, Dispatch, SetStateAction } from 'react'
-
-type Message = {
-    id: number
-    text: string
-    sender: 'user' | 'ai'
-}
+import type { Message } from '../types'
 
 type InterviewContextType = {
     interviewActive: boolean
