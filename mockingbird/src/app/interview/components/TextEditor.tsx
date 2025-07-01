@@ -49,7 +49,7 @@ export const TextEditor = () => {
    return (
         <div className="h-full w-full">
         <Editor 
-            height="90%" 
+            height="calc(50vh - 1rem)" 
             defaultLanguage="javascript"
             theme="vs-dark"
             defaultValue='//Enter your code here'

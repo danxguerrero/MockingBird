@@ -11,8 +11,8 @@ export const InterviewContent = () => {
     const { interviewActive } = useInterview()
 
     return (
-        <div className="flex flex-1">
-            <div className="bg-color-red-500 w-2/5 flex flex-col">
+        <div className="flex flex-1 h-screen">
+            <div className="w-2/5 flex flex-col">
                 <div className="h-1/3 flex">
                     <Timer />
                 </div>
@@ -20,14 +20,17 @@ export const InterviewContent = () => {
                     {interviewActive && <Question/>}
                 </div>
             </div>
-            <div className="w-full flex flex-col">
-                <div className="h-1/2">
-                    {interviewActive && <TextEditor/>}
-                </div>
-                <div className="h-1/2">
-                    {interviewActive && <Chat/>}
-                </div>
-
+            <div className={`w-full flex flex-col h-[90vh] min-h-0 ${interviewActive ? '' : 'justify-center items-center'}`}>
+                {interviewActive && (
+                    <>
+                        <div className="flex-1 overflow-hidden min-h-0">
+                            <TextEditor/>
+                        </div>
+                        <div className="flex-1 overflow-hidden min-h-0">
+                            <Chat/>
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     )
