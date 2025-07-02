@@ -77,10 +77,9 @@ export const Chat = () => {
             onSubmit={handleSubmit}
         >
             <div className="flex gap-2">
-                <input 
-                    type="text"
+                <textarea
                     value={message}
-                    className="flex-1 border rounded-lg px-3 py-2"
+                    className="flex-1 border rounded-lg px-3 py-2 resize-none h-12 max-h-24 overflow-y-auto"
                     onChange={e => setMessage(e.target.value)}
                     placeholder="Type your message..."
                     disabled={isLoading}
