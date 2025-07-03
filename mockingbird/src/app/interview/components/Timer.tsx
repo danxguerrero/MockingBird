@@ -6,7 +6,7 @@ import { generateQuestionFromGemini } from '../actions'
 import type { Message } from '../types'
 
 export const Timer = () => {
-    const { interviewActive, setInterviewActive, setQuestion, time, setTime, setMessages } = useInterview()
+    const { interviewActive, setInterviewActive, setQuestion, time, setTime, setMessages, setCode } = useInterview()
     const minutes = Math.floor(time / 60)
     const seconds = time % 60
 
@@ -15,7 +15,9 @@ export const Timer = () => {
             setTimeout(() => {
                 if (time === 0) {
                     setInterviewActive(false)
-                    return;
+                    setCode('// Enter your code here')
+                    setQuestion("")
+                    return
                 }
 
                 setTime(time - 1)
