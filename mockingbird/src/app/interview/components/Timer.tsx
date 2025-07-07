@@ -15,7 +15,7 @@ export const Timer = () => {
 
     useEffect(() => {
         if (interviewActive) {
-            setTimeout(() => {
+            const timeout = setTimeout(() => {
                 if (time === 0) {
                     setInterviewActive(false)
                     setCode('// Enter your code here')
@@ -26,6 +26,8 @@ export const Timer = () => {
 
                 setTime(time - 1)
             }, 1000)
+
+            return () => clearTimeout(timeout)
         }
     }, [time, interviewActive])
 
