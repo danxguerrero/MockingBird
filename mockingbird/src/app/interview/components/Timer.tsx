@@ -1,5 +1,7 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+
 import { useEffect} from 'react'
 import { useInterview } from './InterviewContext'
 import { generateQuestionFromGemini } from '../actions'
@@ -9,6 +11,7 @@ export const Timer = () => {
     const { interviewActive, setInterviewActive, setQuestion, time, setTime, setMessages, setCode } = useInterview()
     const minutes = Math.floor(time / 60)
     const seconds = time % 60
+    const router = useRouter()
 
     useEffect(() => {
         if (interviewActive) {
@@ -17,6 +20,7 @@ export const Timer = () => {
                     setInterviewActive(false)
                     setCode('// Enter your code here')
                     setQuestion("")
+                    router.push('/feedback')
                     return
                 }
 
