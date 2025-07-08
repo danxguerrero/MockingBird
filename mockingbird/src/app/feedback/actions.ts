@@ -25,6 +25,9 @@ export const generateFeedback = async (chatHistory: Message[]) => {
 
         For higher scores, give feeback on what made them great and encourage them to continue doing this or tips for improving even more.
         For lower scores, provide very brief examples of what needs improvement and how to help them improve. The overall focus is to help the user eventuall get a strong hire score.
+
+        Chat History: 
+        ${chatHistory}
         `
 
         const response = await ai.models.generateContent({
