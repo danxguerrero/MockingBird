@@ -5,6 +5,8 @@ import Editor, { OnMount, OnChange } from "@monaco-editor/react"
 import { editor } from 'monaco-editor'
 import { useInterview } from './InterviewContext'
 
+// TODO #22: Implement an option to allow users to 
+
 const editorOptions: editor.IStandaloneEditorConstructionOptions = {
     minimap: { enabled: false },
     scrollBeyondLastLine: false,
@@ -50,7 +52,7 @@ export const TextEditor = () => {
         <div className="h-full w-full">
         <Editor 
             height="calc(50vh - 1rem)" 
-            defaultLanguage="javascript"
+            defaultLanguage="python"
             theme="vs-dark"
             defaultValue='//Enter your code here'
             options = {editorOptions}
