@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from 'react'
 import type { Message } from '../interview/types'
-import { generateFeedback } from './actions'
+import { useFeedback } from './hooks/useFeedback'
 
 export default function FeedbackPage() {
     const [messages, setMessages] = useState<Message[]>([])
+    const { feedback, isLoading, error } = useFeedback(messages)
 
     useEffect(() => {
         const saved = localStorage.getItem('messages')
@@ -21,12 +22,20 @@ export default function FeedbackPage() {
 
     return (
         <div className="flex-1">
-            <h1>Interview Feedback</h1>
-            {messages.length > 1 ? messages.map((msg, idx) => (
-                <div key={idx}>
-                    <strong>{msg.sender}:</strong> {msg.text}
+            {isLoading && (
+                <div className="text-blue-600">Generating feedback...</div>
+            )}
+
+            {error && (
+                <div>Error: {error}</div>
+            )}
+
+            {feedback && (
+                <div>
+                    <h2>Feedback</h2>
+                    <p>{feedback}</p>
                 </div>
-            )): "No Chat messages found"}
+            )}
         </div>
     )
 }
