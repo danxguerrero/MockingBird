@@ -2,7 +2,7 @@
 
 import { GoogleGenAI } from "@google/genai"
 // TODO: #20 Move Message type to be global
-import type { Message } from "../interview/types"
+import type { Message } from "../types/message"
 
 const ai = new GoogleGenAI({apiKey: process.env.GEMINI_API_KEY})
 
