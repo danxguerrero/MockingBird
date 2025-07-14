@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect} from 'react'
 import { useInterview } from './InterviewContext'
 import { generateQuestionFromGemini } from '../actions'
-import type { Message } from '../types'
+import type { Message } from '../../types/message'
 
 export const Timer = () => {
     const { interviewActive, setInterviewActive, setQuestion, time, setTime, setMessages, setCode } = useInterview()

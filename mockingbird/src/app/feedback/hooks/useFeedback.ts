@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import type { Message } from '../../interview/types'
+import type { Message } from '../../types/message'
 import { generateFeedback } from '../actions'
 
 export const useFeedback = (messages: Message[]) => {

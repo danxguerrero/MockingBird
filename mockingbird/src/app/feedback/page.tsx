@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import type { Message } from '../interview/types'
+import type { Message } from '../types/message'
 import { useFeedback } from './hooks/useFeedback'
 
 export default function FeedbackPage() {
