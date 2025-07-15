@@ -19,7 +19,7 @@ export default function FeedbackPage() {
             }
         }
     }, [])
-
+    
     return (
         <div className="flex-1">
             <h1 className="text-2xl font-bold mb-4">Interview Feedback</h1>
@@ -33,7 +33,7 @@ export default function FeedbackPage() {
             )}
 
             {feedback && (
-                <div className="bg-gray-100 p-4 rounded-lg">
+                <div className="border p-4 rounded-lg mb-4">
                     <h2 className="text-lg font-semibold mb-2">Feedback</h2>
                     <p className="whitespace-pre-wrap">{feedback}</p>
                 </div>
