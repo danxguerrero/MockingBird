@@ -8,6 +8,10 @@ const ai = new GoogleGenAI({apiKey: process.env.GEMINI_API_KEY})
 
 export const generateFeedback = async (chatHistory: Message[]) => {
     try {
+        const historyString = chatHistory
+            .map(msg => `${msg.sender === 'user' ? 'User': 'AI'}: ${msg.text}`)
+            .join('\n')
+
         const prompt = `You are reviewing a mock technical interview that the user just had. Based on the provided chat History, write feedback on the users performance.
         
         The feedback should focus on the following areas:
@@ -27,7 +31,7 @@ export const generateFeedback = async (chatHistory: Message[]) => {
         For lower scores, provide very brief examples of what needs improvement and how to help them improve. The overall focus is to help the user eventuall get a strong hire score.
 
         Chat History: 
-        ${chatHistory}
+        ${historyString}
         `
 
         const response = await ai.models.generateContent({
