@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import type { Message } from '../types/message'
 import { useFeedback } from './hooks/useFeedback'
 
+import { ChatHistory } from './components/ChatHistory'
+
 export default function FeedbackPage() {
     const [messages, setMessages] = useState<Message[]>([])
     const { feedback, isLoading, error } = useFeedback(messages)
@@ -19,7 +21,7 @@ export default function FeedbackPage() {
             }
         }
     }, [])
-    
+
     return (
         <div className="flex-1">
             <h1 className="text-2xl font-bold mb-4">Interview Feedback</h1>
@@ -39,19 +41,8 @@ export default function FeedbackPage() {
                 </div>
             )}
 
-            <div>
-                <h2 className="text-lg font-semibold mb-2">Chat History</h2>
-                <div className="space-y-2">
-                    {messages.map((msg,idx) => (
-                        <div key={idx} className="border p-2 rounded">
-                            <strong className={msg.sender == "user" ? "text-blue-600" : "text-gray-600"}>
-                                {msg.sender === "user" ? "You" : "Interviewer"}
-                            </strong>
-                            <p className="ml-2">{msg.text}</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
+            { messages && <ChatHistory messages={messages} /> }
         </div>
     )
 }
+//TODO: #24 
