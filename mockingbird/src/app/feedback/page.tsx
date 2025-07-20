@@ -23,9 +23,9 @@ export default function FeedbackPage() {
     }, [])
 
     return (
-        <div className="flex-1">
+        <div className="flex-1 mx-42">
             <h1 className="text-2xl font-bold mb-4">Interview Feedback</h1>
-
+            <div className="h-2/3">
             {isLoading && (
                 <div className="text-blue-600">Generating feedback...</div>
             )}
@@ -40,8 +40,12 @@ export default function FeedbackPage() {
                     <p className="whitespace-pre-wrap">{feedback}</p>
                 </div>
             )}
+            </div>
 
-            { messages && <ChatHistory messages={messages} /> }
+            <div className="h-1/2 overflow-hidden">
+                { messages && <ChatHistory messages={messages} /> }
+            </div>
+            
         </div>
     )
 }
