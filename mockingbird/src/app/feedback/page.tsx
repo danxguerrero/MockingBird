@@ -23,27 +23,22 @@ export default function FeedbackPage() {
     }, [])
 
     return (
-        <div className="flex-1 mx-42">
+        <div className="mx-42 mb-3 h-[90vh] flex flex-col">
             <h1 className="text-2xl font-bold mb-4">Interview Feedback</h1>
-            <div className="h-2/3">
-            {isLoading && (
-                <div className="text-blue-600">Generating feedback...</div>
-            )}
 
             {error && (
                 <div className="text-red-600">Error: {error}</div>
             )}
 
-            {feedback && (
-                <div className="border p-4 rounded-lg mb-4">
-                    <h2 className="text-lg font-semibold mb-2">Feedback</h2>
-                    <p className="whitespace-pre-wrap">{feedback}</p>
-                </div>
-            )}
-            </div>
-
-            <div className="h-1/2 overflow-hidden">
+            <div className="flex-1 flex flex-col min-h-0">
+                    <div className="border p-4 rounded-lg h-3/5 mb-4 min-h-0 overflow-y-auto">
+                        <h2 className="text-lg font-semibold mb-2">Feedback</h2>
+                        {isLoading && <div className="text-blue-600">Generating feedback...</div>}
+                        <p className="whitespace-pre-wrap">{feedback}</p>
+                    </div>
+                <div className="h-2/5 min-h-0 overflow-y-auto border p-4 rounded-lg">
                 { messages && <ChatHistory messages={messages} /> }
+                </div>
             </div>
             
         </div>
