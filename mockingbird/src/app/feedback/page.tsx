@@ -44,4 +44,3 @@ export default function FeedbackPage() {
         </div>
     )
 }
-//TODO: #24 
