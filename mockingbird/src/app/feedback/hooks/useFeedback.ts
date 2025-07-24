@@ -7,8 +7,22 @@ export const useFeedback = (messages: Message[]) => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
 
+    // Load feedback from localStorage
     useEffect(() => {
-        if (messages.length > 1) {
+        const savedFeedback = localStorage.getItem("feedback")
+        if (savedFeedback) {
+            setFeedback(savedFeedback)
+        }
+    }, [])
+
+    // Save feedback to localStorage when it changes
+    useEffect(() => {
+        localStorage.setItem("feedback", feedback)
+    }, [feedback])
+
+    // Generates feedback when theres more than one message and no existing feedback
+    useEffect(() => {
+        if (messages.length > 1 && !feedback) {
             setIsLoading(true)
             setError(null)
 
@@ -27,6 +41,18 @@ export const useFeedback = (messages: Message[]) => {
                 })
         }
     }, [messages])
+
+    // Clear feedback from localStorage when navigating away
+    useEffect(() => {
+        const clearFeedback = () => {
+            localStorage.removeItem("feedback")
+        }
+        window.addEventListener('beforeunload', clearFeedback)
+        return () => {
+            window.removeEventListener("beforeunload", clearFeedback)
+            clearFeedback()
+        }
+    }, [])
     
     return { feedback, isLoading, error}
 }
