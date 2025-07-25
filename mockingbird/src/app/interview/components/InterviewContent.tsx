@@ -17,17 +17,17 @@ export const InterviewContent = () => {
                     <Timer />
                 </div>
                 <div className="h-2/3">
-                    {interviewActive && <Question/>}
+                    {interviewActive && <Question />}
                 </div>
             </div>
             <div className={`w-full flex flex-col h-[90vh] min-h-0 ${interviewActive ? '' : 'justify-center items-center'}`}>
                 {interviewActive && (
                     <>
                         <div className="flex-1 overflow-hidden min-h-0">
-                            <TextEditor/>
+                            <TextEditor />
                         </div>
                         <div className="flex-1 overflow-hidden min-h-0">
-                            <Chat/>
+                            <Chat />
                         </div>
                     </>
                 )}

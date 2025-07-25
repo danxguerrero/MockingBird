@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 
-import { useEffect} from 'react'
+import { useEffect } from 'react'
 import { useInterview } from './InterviewContext'
 import { generateQuestionFromGemini } from '../actions'
 import type { Message } from '../../types/message'
@@ -35,7 +35,7 @@ export const Timer = () => {
         setInterviewActive(true)
         const geminiQuestion = await generateQuestionFromGemini()
         setQuestion(geminiQuestion ?? "No question generated.")
-        
+
         // Add initial AI message
         const initialMessage: Message = {
             id: Date.now(),

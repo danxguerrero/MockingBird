@@ -2,7 +2,7 @@
 
 import { GoogleGenAI } from '@google/genai'
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY})
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
 
 export const sendToGemini = async (userMessage: string, codeContent: string, conversationHistory: string[], codeQuestion: string | null) => {
     try {
@@ -49,7 +49,7 @@ export const generateQuestionFromGemini = async () => {
         })
 
         return response.text
-     } catch (error) {
+    } catch (error) {
         console.error('Error calling Gemini', error)
         return 'Sorry, I encountered an error. Please try again.'
     }

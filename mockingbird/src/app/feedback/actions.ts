@@ -4,12 +4,12 @@ import { GoogleGenAI } from "@google/genai"
 // TODO: #20 Move Message type to be global
 import type { Message } from "../types/message"
 
-const ai = new GoogleGenAI({apiKey: process.env.GEMINI_API_KEY})
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
 
 export const generateFeedback = async (chatHistory: Message[]) => {
     try {
         const historyString = chatHistory
-            .map(msg => `${msg.sender === 'user' ? 'User': 'AI'}: ${msg.text}`)
+            .map(msg => `${msg.sender === 'user' ? 'User' : 'AI'}: ${msg.text}`)
             .join('\n')
 
         const prompt = `You are reviewing a mock technical interview that the user just had. Based on the provided chat History, write feedback on the users performance.

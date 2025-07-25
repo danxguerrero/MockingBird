@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect,  ReactNode, Dispatch, SetStateAction } from 'react'
+import { createContext, useContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from 'react'
 import type { Message } from '../../types/message'
 
 type InterviewContextType = {
@@ -24,7 +24,7 @@ export const useInterview = () => {
     return context
 }
 
-export const InterviewProvider = ({ children }: {children: ReactNode }) => {
+export const InterviewProvider = ({ children }: { children: ReactNode }) => {
     const [interviewActive, setInterviewActive] = useState((false))
     const [question, setQuestion] = useState<string | null>(null)
     const [time, setTime] = useState<number>(45 * 60)

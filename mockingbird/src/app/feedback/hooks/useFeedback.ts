@@ -32,7 +32,7 @@ export const useFeedback = (messages: Message[]) => {
                         setFeedback(result)
                     }
                 })
-                .catch ((error) => {
+                .catch((error) => {
                     console.error("Unable to generate feedback: ", error)
                     setError("Failed to generate feedback.")
                 })
@@ -53,6 +53,6 @@ export const useFeedback = (messages: Message[]) => {
             clearFeedback()
         }
     }, [])
-    
-    return { feedback, isLoading, error}
+
+    return { feedback, isLoading, error }
 }

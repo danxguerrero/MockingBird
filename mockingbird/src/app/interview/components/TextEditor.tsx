@@ -48,17 +48,17 @@ export const TextEditor = () => {
     }
 
 
-   return (
+    return (
         <div className="h-full w-full">
-        <Editor 
-            height="calc(50vh - 1rem)" 
-            defaultLanguage="python"
-            theme="vs-dark"
-            defaultValue='//Enter your code here'
-            options = {editorOptions}
-            onMount={handleEditorDidMount}
-            onChange = {handleEditorChange}
-        />
+            <Editor
+                height="calc(50vh - 1rem)"
+                defaultLanguage="python"
+                theme="vs-dark"
+                defaultValue='//Enter your code here'
+                options={editorOptions}
+                onMount={handleEditorDidMount}
+                onChange={handleEditorChange}
+            />
         </div>
 
     )

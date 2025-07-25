@@ -24,7 +24,7 @@ export const Chat = () => {
         setMessages((prev: Message[]) => [...prev, userMessage])
         setMessage("")
         setIsLoading(true)
-    
+
         try {
             const codeContent = code || "User has not written any code yet."
 
@@ -55,11 +55,10 @@ export const Chat = () => {
         <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-0">
             {messages.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.sender == 'user' ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-                        msg.sender === 'user'
+                    <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${msg.sender === 'user'
                             ? 'bg-blue-500 text-white'
                             : 'bg-gray-200 text-gray-800'
-                    }`}>
+                        }`}>
                         {msg.text}
                     </div>
                 </div>
