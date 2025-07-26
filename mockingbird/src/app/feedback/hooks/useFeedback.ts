@@ -9,38 +9,36 @@ export const useFeedback = (messages: Message[]) => {
 
     // Load feedback from localStorage
     useEffect(() => {
-        const savedFeedback = localStorage.getItem("feedback")
-        if (savedFeedback) {
-            setFeedback(savedFeedback)
+        let isMounted = true
+        const loadOrGenerateFeedback = async () => {
+            const savedFeedback = localStorage.getItem("feedback")
+            if (savedFeedback) {
+                if (isMounted) setFeedback(savedFeedback)
+            } else if (messages.length > 1) {
+                setIsLoading(true)
+                setError(null)
+                try {
+                    const result = await generateFeedback(messages)
+                    if (result && isMounted) {
+                        setFeedback(result)
+                        localStorage.setItem("feedback", result)
+                    }
+                } catch (error) {
+                    console.error("Unable to generate feedback: ", error)
+                    setError("Failed to generate feedback.")
+                } finally {
+                    setIsLoading(false)
+                }
+            }
         }
-    }, [])
+        loadOrGenerateFeedback()
+        return () => { isMounted = false }
+    }, [messages])
 
     // Save feedback to localStorage when it changes
     useEffect(() => {
         localStorage.setItem("feedback", feedback)
     }, [feedback])
-
-    // Generates feedback when theres more than one message and no existing feedback
-    useEffect(() => {
-        if (messages.length > 1 && !feedback) {
-            setIsLoading(true)
-            setError(null)
-
-            generateFeedback(messages)
-                .then((result) => {
-                    if (result) {
-                        setFeedback(result)
-                    }
-                })
-                .catch((error) => {
-                    console.error("Unable to generate feedback: ", error)
-                    setError("Failed to generate feedback.")
-                })
-                .finally(() => {
-                    setIsLoading(false)
-                })
-        }
-    }, [messages])
 
     // Clear feedback from localStorage when navigating away
     useEffect(() => {
