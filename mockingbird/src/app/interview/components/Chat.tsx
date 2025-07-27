@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { sendToGemini } from '../actions'
 import { useInterview } from './InterviewContext'
 import type { Message } from '../../types/message'
@@ -9,6 +9,15 @@ export const Chat = () => {
     const { messages, setMessages, code, question } = useInterview()
     const [message, setMessage] = useState<string>("")
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const messagesEndRef = useRef<HTMLDivElement>(null)
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    }
+
+    useEffect(() => {
+        scrollToBottom()
+    }, [messages, isLoading])
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -70,6 +79,7 @@ export const Chat = () => {
                     </div>
                 </div>
             )}
+            <div ref={messagesEndRef} />
         </div>
         <form
             className="p-4 border-t flex-shrink-0"
