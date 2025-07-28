@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import Editor, { OnMount, OnChange } from "@monaco-editor/react"
 import { editor } from 'monaco-editor'
 import { useInterview } from './InterviewContext'
@@ -28,10 +28,18 @@ const editorOptions: editor.IStandaloneEditorConstructionOptions = {
     formatOnType: false
 }
 
-export const TextEditor = () => {
+// Langauges user can choose from. 
+const languages = [
+    { value: 'python', label: 'Python' },
+    { value: 'javascript', label: 'JavaScript' },
+    { value: 'cpp', label: 'C++' },
+    { value: 'java', label: 'Java' }
+]
 
+export const TextEditor = () => {
     const { code, setCode } = useInterview()
     const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null)
+    const [language, setLanguage] = useState('python')
 
     const handleEditorDidMount: OnMount = (editor) => {
         editorRef.current = editor
@@ -47,12 +55,37 @@ export const TextEditor = () => {
         }
     }
 
+    const handleLanguageChange = (newLanguage: string) => {
+        setLanguage(newLanguage)
+        // Clear the editor when changing languages
+        if (editorRef.current) {
+            editorRef.current.setValue('')
+        }
+        setCode('')
+    }
 
     return (
         <div className="h-full w-full">
+            <div className="flex items-center justify-end gap-2 p-2 bg-neutral-800 border-b">
+                <label htmlFor="language-select" className="text-sm font-medium text-white">
+                    Language:
+                </label>
+                <select
+                    id="language-select"
+                    value={language}
+                    onChange={(e) => handleLanguageChange(e.target.value)}
+                    className="px-3 py-1 border border-lime-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-lime-500"
+                >
+                    {languages.map((lang) => (
+                        <option key={lang.value} value={lang.value}>
+                            {lang.label}
+                        </option>
+                    ))}
+                </select>
+            </div>
             <Editor
-                height="calc(50vh - 1rem)"
-                defaultLanguage="python"
+                height="calc(50vh - 3rem)"
+                language={language}
                 theme="vs-dark"
                 defaultValue='//Enter your code here'
                 options={editorOptions}
@@ -60,6 +93,5 @@ export const TextEditor = () => {
                 onChange={handleEditorChange}
             />
         </div>
-
     )
 }
