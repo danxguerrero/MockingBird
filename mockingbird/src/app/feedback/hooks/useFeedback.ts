@@ -45,6 +45,10 @@ export const useFeedback = (messages: Message[]) => {
         
         // Update the previous messages reference
         previousMessagesRef.current = messages
+        
+        return () => {
+            isMounted = false
+        }
     }, [messages])
 
     // Save feedback to localStorage when it changes
