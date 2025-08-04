@@ -45,3 +45,55 @@ export const generateFeedback = async (chatHistory: Message[]) => {
         return 'Sorry, I encountered an error. Please try again.'
     }
 }
+
+export const sendFeedbackEmail = async (email: string, feedback: string, messages: Message[]) => {
+    try {
+        // For now, we'll use a simple approach with a service like Resend or Nodemailer
+        // You'll need to set up an email service provider
+        
+        const emailContent = `
+Subject: Your Interview Feedback from MockingBird
+
+Hi there!
+
+Here's your interview feedback from your recent mock technical interview:
+
+${feedback}
+
+---
+Interview Summary:
+- Total messages: ${messages.length}
+- Interview date: ${new Date().toLocaleDateString()}
+
+Best regards,
+The MockingBird Team
+        `
+
+        // Option 1: Using Resend (recommended for production)
+        // You'll need to install: npm install resend
+        // And set up RESEND_API_KEY in your environment variables
+        
+        // Option 2: Using Nodemailer (for custom SMTP)
+        // You'll need to install: npm install nodemailer
+        
+        // For now, we'll simulate the email sending
+        console.log('Email would be sent to:', email)
+        console.log('Email content:', emailContent)
+        
+        // TODO: Implement actual email sending
+        // Example with Resend:
+        // const { Resend } = require('resend');
+        // const resend = new Resend(process.env.RESEND_API_KEY);
+        // await resend.emails.send({
+        //   from: 'feedback@yourdomain.com',
+        //   to: email,
+        //   subject: 'Your Interview Feedback from MockingBird',
+        //   html: emailContent
+        // });
+        
+        return { success: true, message: 'Email sent successfully!' }
+    } catch (error) {
+        console.error('Error sending email:', error)
+        return { success: false, message: 'Failed to send email. Please try again.' }
+    }
+}

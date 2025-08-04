@@ -32,7 +32,7 @@ export default function FeedbackPage() {
             )}
 
             <div className="flex-1 flex flex-col min-h-0">
-                <Feedback isLoading={isLoading} feedback={feedback} />
+                <Feedback isLoading={isLoading} feedback={feedback} messages={messages} />
                 <div className="h-2/5 min-h-0 overflow-y-auto border p-4 rounded-lg">
                     {messages && <ChatHistory messages={messages} />}
                 </div>
