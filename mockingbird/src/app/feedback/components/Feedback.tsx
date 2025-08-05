@@ -2,11 +2,12 @@
 
 import { useState } from 'react'
 import { sendFeedbackEmail } from '../actions'
+import { Message } from '../../types/message'
 
 export const Feedback = ({isLoading, feedback, messages}: {
     isLoading: boolean, 
     feedback: string,
-    messages: any[]
+    messages: Message[]
 }) => {
     const [email, setEmail] = useState('')
     const [isSending, setIsSending] = useState(false)
@@ -28,7 +29,7 @@ export const Feedback = ({isLoading, feedback, messages}: {
         } catch (error) {
             setEmailStatus({
                 success: false,
-                message: 'Failed to send email. Please try again.'
+                message: 'Failed to send email. Please try again. ' + error
             })
         } finally {
             setIsSending(false)
