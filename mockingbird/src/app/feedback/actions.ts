@@ -1,7 +1,6 @@
 'use server'
 
 import { GoogleGenAI } from "@google/genai"
-// TODO: #20 Move Message type to be global
 import type { Message } from "../types/message"
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
@@ -48,52 +47,83 @@ export const generateFeedback = async (chatHistory: Message[]) => {
 
 export const sendFeedbackEmail = async (email: string, feedback: string, messages: Message[]) => {
     try {
-        // For now, we'll use a simple approach with a service like Resend or Nodemailer
-        // You'll need to set up an email service provider
+        // Importing Resend dynamically to avoid issues with server-side rendering
+        const { Resend } = await import('resend')
+        const resend = new Resend(process.env.RESEND_API_KEY)
         
-        const emailContent = `
-Subject: Your Interview Feedback from MockingBird
-
-Hi there!
-
-Here's your interview feedback from your recent mock technical interview:
-
-${feedback}
-
----
-Interview Summary:
-- Total messages: ${messages.length}
-- Interview date: ${new Date().toLocaleDateString()}
-
-Best regards,
-The MockingBird Team
+        const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Your Interview Feedback</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .feedback-section { background-color: #ffffff; padding: 20px; border: 1px solid #e9ecef; border-radius: 8px; margin-bottom: 20px; }
+        .summary { background-color: #e7f3ff; padding: 15px; border-radius: 8px; margin-top: 20px; }
+        .footer { text-align: center; color: #6c757d; font-size: 14px; margin-top: 30px; }
+        h1 { color: #2c3e50; margin-bottom: 10px; }
+        h2 { color: #34495e; border-bottom: 2px solid #3498db; padding-bottom: 5px; }
+        .pre-wrap { white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 Your Interview Feedback from MockingBird</h1>
+        <p>Hi there! Here's your comprehensive feedback from your recent mock technical interview.</p>
+    </div>
+    
+    <div class="feedback-section">
+        <h2>📝 Detailed Feedback</h2>
+        <div class="pre-wrap">${feedback}</div>
+    </div>
+    
+    <div class="summary">
+        <h2>📊 Interview Summary</h2>
+        <ul>
+            <li><strong>Total messages exchanged:</strong> ${messages.length}</li>
+            <li><strong>Interview date:</strong> ${new Date().toLocaleDateString()}</li>
+            <li><strong>Interview time:</strong> ${new Date().toLocaleTimeString()}</li>
+        </ul>
+    </div>
+    
+    <div class="footer">
+        <p>Keep practicing and you'll ace your next interview! 🚀</p>
+        <p><strong>The MockingBird Team</strong></p>
+        <p><em>This email was sent from MockingBird - Your AI Interview Coach</em></p>
+    </div>
+</body>
+</html>
         `
 
-        // Option 1: Using Resend (recommended for production)
-        // You'll need to install: npm install resend
-        // And set up RESEND_API_KEY in your environment variables
-        
-        // Option 2: Using Nodemailer (for custom SMTP)
-        // You'll need to install: npm install nodemailer
-        
-        // For now, we'll simulate the email sending
-        console.log('Email would be sent to:', email)
-        console.log('Email content:', emailContent)
-        
-        // TODO: Implement actual email sending
-        // Example with Resend:
-        // const { Resend } = require('resend');
-        // const resend = new Resend(process.env.RESEND_API_KEY);
-        // await resend.emails.send({
-        //   from: 'feedback@yourdomain.com',
-        //   to: email,
-        //   subject: 'Your Interview Feedback from MockingBird',
-        //   html: emailContent
-        // });
-        
-        return { success: true, message: 'Email sent successfully!' }
+        // Send email 
+        const result = await resend.emails.send({
+            from: 'MockingBird <feedback@resend.dev>', 
+            to: [email],
+            subject: '🎯 Your Interview Feedback from MockingBird',
+            html: htmlContent,
+            text: `Your Interview Feedback from MockingBird\n\n${feedback}\n\n---\nInterview Summary:\n- Total messages: ${messages.length}\n- Interview date: ${new Date().toLocaleDateString()}\n\nBest regards,\nThe MockingBird Team`
+        })
+
+        if (result.error) {
+            console.error('Resend error:', result.error)
+            return { 
+                success: false, 
+                message: `Failed to send email: ${result.error.message}` 
+            }
+        }
+
+        console.log('Email sent successfully:', result.data?.id)
+        return { 
+            success: true, 
+            message: 'Email sent successfully! Check your inbox.' 
+        }
     } catch (error) {
         console.error('Error sending email:', error)
-        return { success: false, message: 'Failed to send email. Please try again.' }
+        return { 
+            success: false, 
+            message: `Failed to send email: ${error instanceof Error ? error.message : 'Unknown error'}` 
+        }
     }
 }
