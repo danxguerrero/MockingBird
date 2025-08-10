@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { useInterview } from './InterviewContext'
 import { getRandomQuestion } from '../actions'
-import type { Question } from '../../types/question'
 import type { Message } from '../../types/message'
 
 export const Timer = () => {
