@@ -8,7 +8,7 @@ import { getRandomQuestion } from '../actions'
 import type { Message } from '../../types/message'
 
 export const Timer = () => {
-    const { interviewActive, setInterviewActive, setQuestion, time, setTime, setMessages, setCode } = useInterview()
+    const { interviewActive, setInterviewActive, setQuestion, time, setTime, setMessages, setCode, resetInterview } = useInterview()
     const minutes = Math.floor(time / 60)
     const seconds = time % 60
     const router = useRouter()
@@ -17,9 +17,7 @@ export const Timer = () => {
         if (interviewActive) {
             const timeout = setTimeout(() => {
                 if (time === 0) {
-                    setInterviewActive(false)
-                    setCode('// Enter your code here')
-                    setQuestion("")
+                    resetInterview()
                     router.push('/feedback')
                     return
                 }
