@@ -8,7 +8,7 @@ import { getRandomQuestion } from '../actions'
 import type { Message } from '../../types/message'
 
 export const Timer = () => {
-    const { interviewActive, setInterviewActive, setQuestion, time, setTime, setMessages, setCode, resetInterview } = useInterview()
+    const { interviewActive, setInterviewActive, setQuestion, time, setTime, setMessages, resetInterview } = useInterview()
     const minutes = Math.floor(time / 60)
     const seconds = time % 60
     const router = useRouter()
