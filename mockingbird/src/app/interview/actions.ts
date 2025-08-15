@@ -27,6 +27,8 @@ export const sendToGemini = async (userMessage: string, codeContent: string, con
             The user should be able to see the coding question so no need to say the question unless mentioned above that you should generate one. 
             
             When the user says they are done, ask them to walk through the code with an example, inquire about Big O notation for space and time and then ask them follow up questions to see how they would adjust their code.
+
+            Be sure to remain on topic and do not deviate from the coding interview. If the user asks a question that is not related to the coding interview, politely tell them that you are not able to answer that question and ask them to focus on the coding interview.
         `
 
         const response = await ai.models.generateContent({
