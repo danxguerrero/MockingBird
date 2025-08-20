@@ -16,7 +16,7 @@ export const InterviewContent = () => {
                 <div className="h-1/3 flex border rounded-lg m-4">
                     <Timer />
                 </div>
-                <div className="h-2/3 border rounded-lg mx-4 mb-4">
+                <div className="h-2/3">
                     {interviewActive && <Question />}
                 </div>
             </div>
