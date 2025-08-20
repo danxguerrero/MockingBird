@@ -19,16 +19,14 @@ export const Chat = () => {
         scrollToBottom()
     }, [messages, isLoading])
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        if (!message.trim()) return
+    const submitMessage = async (messageText: string) => {
+        if (!messageText.trim()) return
 
         const userMessage: Message = {
             id: Date.now(),
-            text: message,
+            text: messageText,
             sender: 'user'
         }
-
 
         setMessages((prev: Message[]) => [...prev, userMessage])
         setMessage("")
@@ -42,7 +40,7 @@ export const Chat = () => {
             const codingQuestion = question || "A question could not be generated. Please generate an easy or medium leetcode style question to ask the user."
 
             // Make call to Gemini
-            const aiResponse = await sendToGemini(message, codeContent, conversationHistory, codingQuestion)
+            const aiResponse = await sendToGemini(messageText, codeContent, conversationHistory, codingQuestion)
 
             if (aiResponse) {
                 const aiMessage: Message = {
@@ -57,7 +55,11 @@ export const Chat = () => {
         } finally {
             setIsLoading(false)
         }
+    }
 
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        submitMessage(message)
     }
 
     return <div className="h-full flex flex-col min-h-0">
@@ -94,7 +96,7 @@ export const Chat = () => {
                         if (e.key === 'Enter' && !e.shiftKey) {
                             e.preventDefault()
                             if (message.trim() && !isLoading) {
-                                handleSubmit(e as any)
+                                submitMessage(message)
                             }
                         }
                     }}
