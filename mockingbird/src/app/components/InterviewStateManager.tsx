@@ -9,8 +9,8 @@ export const InterviewStateManager = () => {
     const { resetInterview, interviewActive, question, messages } = useInterview()
 
     useEffect(() => {
-        // If we're not on the interview page and we have any interview data, reset the state
-        if (pathname !== '/interview' && (interviewActive || question || messages.length > 0)) {
+        // Only reset if we're not on interview or feedback pages and we have interview data
+        if (pathname !== '/interview' && pathname !== '/feedback' && (interviewActive || question || messages.length > 0)) {
             resetInterview()
         }
     }, [pathname, interviewActive, question, messages, resetInterview])
