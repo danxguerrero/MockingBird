@@ -17,7 +17,9 @@ export const Timer = () => {
         if (interviewActive) {
             const timeout = setTimeout(() => {
                 if (time === 0) {
-                    resetInterview()
+                    // Don't reset interview state yet - preserve it for feedback
+                    setInterviewActive(false)
+                    setTime(0)
                     router.push('/feedback')
                     return
                 }
