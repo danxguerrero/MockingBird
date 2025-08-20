@@ -90,6 +90,14 @@ export const Chat = () => {
                     value={message}
                     className="flex-1 border rounded-lg px-3 py-2 resize-none h-12 max-h-24 overflow-y-auto"
                     onChange={e => setMessage(e.target.value)}
+                    onKeyDown={e => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault()
+                            if (message.trim() && !isLoading) {
+                                handleSubmit(e as any)
+                            }
+                        }
+                    }}
                     placeholder="Type your message..."
                     disabled={isLoading}
                 />
