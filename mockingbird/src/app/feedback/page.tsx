@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import type { Message } from '../types/message'
 import { useFeedback } from './hooks/useFeedback'
+import { useInterview } from '../interview/components/InterviewContext'
 
 import { ChatHistory } from './components/ChatHistory'
 import { Feedback } from './components/Feedback'
@@ -10,6 +11,7 @@ import { Feedback } from './components/Feedback'
 export default function FeedbackPage() {
     const [messages, setMessages] = useState<Message[]>([])
     const { feedback, isLoading, error } = useFeedback(messages)
+    const { resetInterview } = useInterview()
 
     useEffect(() => {
         const saved = localStorage.getItem('messages')
@@ -22,6 +24,18 @@ export default function FeedbackPage() {
             }
         }
     }, [])
+
+    // Clear interview state after feedback is generated
+    useEffect(() => {
+        if (feedback && !isLoading) {
+            // Small delay to ensure feedback is displayed before clearing
+            const timer = setTimeout(() => {
+                resetInterview()
+            }, 1000)
+            
+            return () => clearTimeout(timer)
+        }
+    }, [feedback, isLoading, resetInterview])
 
     return (
         <div className="mx-42 mb-3 h-[90vh] flex flex-col">
