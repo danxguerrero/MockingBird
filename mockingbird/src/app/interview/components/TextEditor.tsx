@@ -65,8 +65,8 @@ export const TextEditor = () => {
     }
 
     return (
-        <div className="h-full w-full">
-            <div className="flex items-center justify-end gap-2 p-2 bg-neutral-800 border-b">
+        <div className="h-full w-full flex flex-col">
+            <div className="flex items-center justify-end gap-2 p-2 bg-neutral-800 border-b flex-shrink-0">
                 <label htmlFor="language-select" className="text-sm font-medium text-white">
                     Language:
                 </label>
@@ -83,15 +83,17 @@ export const TextEditor = () => {
                     ))}
                 </select>
             </div>
-            <Editor
-                height="calc(50vh - 3rem)"
-                language={language}
-                theme="vs-dark"
-                defaultValue='//Enter your code here'
-                options={editorOptions}
-                onMount={handleEditorDidMount}
-                onChange={handleEditorChange}
-            />
+            <div className="flex-1 min-h-0">
+                <Editor
+                    height="100%"
+                    language={language}
+                    theme="vs-dark"
+                    defaultValue='//Enter your code here'
+                    options={editorOptions}
+                    onMount={handleEditorDidMount}
+                    onChange={handleEditorChange}
+                />
+            </div>
         </div>
     )
 }
