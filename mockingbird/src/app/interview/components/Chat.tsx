@@ -67,7 +67,7 @@ export const Chat = () => {
             {messages.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.sender == 'user' ? 'justify-end' : 'justify-start'}`}>
                     <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${msg.sender === 'user'
-                            ? 'bg-lime-500 text-gray-800'
+                            ? 'bg-lime-300 text-gray-800'
                             : 'bg-gray-200 text-gray-800'
                         }`}>
                         {msg.text}
