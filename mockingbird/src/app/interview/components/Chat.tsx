@@ -67,7 +67,7 @@ export const Chat = () => {
             {messages.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.sender == 'user' ? 'justify-end' : 'justify-start'}`}>
                     <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${msg.sender === 'user'
-                            ? 'bg-blue-500 text-white'
+                            ? 'bg-lime-500 text-gray-800'
                             : 'bg-gray-200 text-gray-800'
                         }`}>
                         {msg.text}
@@ -105,7 +105,7 @@ export const Chat = () => {
                 />
                 <button
                     type="submit"
-                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 disabled:opacity-50"
+                    className="bg-lime-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-lime-500 disabled:opacity-50"
                     disabled={isLoading}
                 >
                     Send
