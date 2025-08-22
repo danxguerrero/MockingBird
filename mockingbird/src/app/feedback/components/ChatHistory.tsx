@@ -4,7 +4,7 @@ export const ChatHistory = ({ messages }: { messages: Message[] }) => {
 
     return (
         <div>
-            <h2 className="text-lg font-semibold mb-2 text-lime-300">Chat History</h2>
+            <h2 className="text-lg font-semibold mb-2 text-lime-500">Chat History</h2>
             <div className="space-y-2">
                 {messages.map((msg) => (
                     <div key={msg.id} className="border p-2 rounded">
