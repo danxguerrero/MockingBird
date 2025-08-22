@@ -11,7 +11,7 @@ export const Header = () => {
             {pathname === '/' ? 
                 <Link href="/interview" className="inline-block bg-lime-300 text-black px-3 rounded-lg hover:bg-lime-500 hover:text-white transition-colors">Start New Interview</Link> 
                 : 
-                <Link href="/" className="inline-block bg-lime-300 text-black px-3 rounded-lg hover:bg-lime-500 hover:text-white transition-colors">Home</Link>
+                <Link href="/" className="inline-block bg-lime-300 text-gray-800 px-3 rounded-lg hover:bg-lime-500 transition-colors">Home</Link>
             }
         </div>
     )
