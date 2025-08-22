@@ -47,7 +47,7 @@ export const Feedback = ({isLoading, feedback, messages}: {
                     <h3 className="text-md font-semibold mb-2">Email Feedback</h3>
                     <form onSubmit={handleSendEmail} className="space-y-3">
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-1">
                                 Email Address
                             </label>
                             <input
