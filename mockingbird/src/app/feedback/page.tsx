@@ -39,7 +39,7 @@ export default function FeedbackPage() {
 
     return (
         <div className="mx-42 mb-3 h-[90vh] flex flex-col">
-            <h1 className="text-2xl font-bold mb-4">Interview Feedback</h1>
+            <h1 className="text-2xl font-bold mb-4 text-lime-300">Interview Feedback</h1>
 
             {error && (
                 <div className="text-red-600">Error: {error}</div>

@@ -38,8 +38,8 @@ export const Feedback = ({isLoading, feedback, messages}: {
 
     return (
         <div className="border p-4 rounded-lg h-3/5 mb-4 min-h-0 overflow-y-auto">
-            <h2 className="text-lg font-semibold mb-2">Feedback</h2>
-            {isLoading && <div className="text-blue-600">Generating feedback...</div>}
+            <h2 className="text-lg font-semibold mb-2 text-lime-500">Feedback</h2>
+            {isLoading && <div className="text-lime-300">Generating feedback...</div>}
             <p className="whitespace-pre-wrap mb-4">{feedback}</p>
             
             {feedback && !isLoading && (
@@ -56,7 +56,7 @@ export const Feedback = ({isLoading, feedback, messages}: {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder="your.email@example.com"
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
                                 required
                             />
                         </div>
@@ -64,7 +64,7 @@ export const Feedback = ({isLoading, feedback, messages}: {
                         <button
                             type="submit"
                             disabled={isSending || !email}
-                            className="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200"
+                            className="w-full bg-lime-300 text-gray-800 px-4 py-2 rounded-md hover:bg-lime-500 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200"
                         >
                             {isSending ? 'Sending...' : 'Send Feedback to Email'}
                         </button>
