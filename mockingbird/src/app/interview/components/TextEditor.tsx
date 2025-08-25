@@ -88,7 +88,7 @@ export const TextEditor = () => {
                     height="100%"
                     language={language}
                     theme="vs-dark"
-                    defaultValue='//Enter your code here'
+                    defaultValue='# Enter your code here\n'
                     options={editorOptions}
                     onMount={handleEditorDidMount}
                     onChange={handleEditorChange}
