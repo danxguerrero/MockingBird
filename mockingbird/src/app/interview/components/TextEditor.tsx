@@ -44,7 +44,8 @@ export const TextEditor = () => {
     const handleEditorDidMount: OnMount = (editor) => {
         editorRef.current = editor
 
-        if (code) {
+        // Only set the value if there's meaningful code (not just the default placeholder)
+        if (code && code.trim() && !code.includes("Enter your code")) {
             editor.setValue(code)
         }
     }
@@ -57,11 +58,12 @@ export const TextEditor = () => {
 
     const handleLanguageChange = (newLanguage: string) => {
         setLanguage(newLanguage)
-        // Clear the editor when changing languages
+        // Set appropriate default text for the new language
+        const defaultText = newLanguage === "python" ? "# Enter your code below" : "// Enter your code below"
         if (editorRef.current) {
-            editorRef.current.setValue('')
+            editorRef.current.setValue(defaultText)
         }
-        setCode('')
+        setCode(defaultText)
     }
 
     return (
@@ -88,7 +90,7 @@ export const TextEditor = () => {
                     height="100%"
                     language={language}
                     theme="vs-dark"
-                    defaultValue='# Enter your code here\n'
+                    defaultValue={ language == "python" ? "# Enter your code below" : "// Enter your code below" }
                     options={editorOptions}
                     onMount={handleEditorDidMount}
                     onChange={handleEditorChange}
