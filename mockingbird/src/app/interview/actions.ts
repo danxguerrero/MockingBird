@@ -1,9 +1,8 @@
 'use server'
 
 import { GoogleGenAI } from '@google/genai'
-import fs from 'fs'
-import path from 'path'
-import type { Question, QuestionsData } from '../types/question'
+import type { Question } from '../types/question'
+import questionsData from '../data/questions.json'
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
 
@@ -45,11 +44,6 @@ export const sendToGemini = async (userMessage: string, codeContent: string, con
 
 export const getRandomQuestion = async (difficulty?: 'easy' | 'medium' | 'hard'): Promise<Question | null> => {
     try {
-        // Read the questions.json file
-        const questionsPath = path.join(process.cwd(), 'src', 'app', 'data', 'questions.json')
-        const fileContent = fs.readFileSync(questionsPath, 'utf-8')
-        const questionsData: QuestionsData = JSON.parse(fileContent)
-        
         // Filter questions by difficulty if specified
         let availableQuestions = questionsData.questions
         if (difficulty) {
@@ -64,7 +58,14 @@ export const getRandomQuestion = async (difficulty?: 'easy' | 'medium' | 'hard')
         
         // Select a random question
         const randomIndex = Math.floor(Math.random() * availableQuestions.length)
-        return availableQuestions[randomIndex]
+        const selectedQuestion = availableQuestions[randomIndex]
+        
+        // Ensure the difficulty is properly typed
+        return {
+            id: selectedQuestion.id,
+            description: selectedQuestion.description,
+            difficulty: selectedQuestion.difficulty as 'easy' | 'medium' | 'hard'
+        }
         
     } catch (error) {
         console.error('Error reading questions from file:', error)
