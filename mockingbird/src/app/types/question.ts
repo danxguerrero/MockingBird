@@ -4,8 +4,5 @@ interface Question {
     difficulty: 'easy' | 'medium' | 'hard'
 }
 
-interface QuestionsData {
-    questions: Question[]
-}
 
-export type { Question, QuestionsData}
+export type { Question }
