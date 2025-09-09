@@ -39,7 +39,7 @@ export const Timer = () => {
         // Add initial AI message
         const initialMessage: Message = {
             id: Date.now(),
-            text: "Hello! I'm your AI interviewer today. Please introduce yourself and start ask any clarifying questions you may have about the coding question. Any time you send a chat message, I will also be able to see any changes you make to the code.",
+            text: "Hello! I'm your AI interviewer today. Please introduce yourself and ask any clarifying questions you may have about the coding question. Any time you send a chat message, I will also be able to see any changes you make to the code.",
             sender: 'ai'
         }
         setMessages([initialMessage])
